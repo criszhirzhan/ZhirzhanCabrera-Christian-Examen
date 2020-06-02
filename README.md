@@ -11,5 +11,6 @@ Ingresar Capitulo
 ![](media/c98b8b35d15e7f49721ce8fba57ef0e7.png)
 
 Registar Libro
+ESTA PARTE AUN NO ESTA IMPLEMENTADA AL IGUAL QUE EL LISTAR.
 
 ![](media/f7b33403d6993b5d783ec93eb30200b7.png)
