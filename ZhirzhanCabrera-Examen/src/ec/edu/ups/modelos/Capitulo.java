@@ -105,11 +105,7 @@ public class Capitulo implements Serializable {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Capitulo [codigoCapitulo=" + codigoCapitulo + ", numero=" + numero + ", titulo=" + titulo + ", libro="
-				+ libro + ", autor=" + autor + "]";
-	}
+
 	
 	
    

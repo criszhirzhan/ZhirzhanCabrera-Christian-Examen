@@ -78,11 +78,7 @@ public class Autor implements Serializable {
 		this.capitulo = capitulo;
 	}
 
-	@Override
-	public String toString() {
-		return "Autor [codigoAutor=" + codigoAutor + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad
-				+ ", capitulo=" + capitulo + "]";
-	}
+
 	
 	
    
