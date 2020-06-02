@@ -9,20 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import ec.edu.ups.dao.AutorDAO;
 import ec.edu.ups.dao.DAOFactory;
-import ec.edu.ups.modelos.Autor;
-
 
 /**
- * Servlet implementation class IngresarAutor
+ * Servlet implementation class RecuperarAutores
  */
-@WebServlet("/IngresarAutor")
-public class IngresarAutor extends HttpServlet {
+@WebServlet("/RecuperarAutores")
+public class RecuperarAutores extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IngresarAutor() {
+    public RecuperarAutores() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,18 +33,10 @@ public class IngresarAutor extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		AutorDAO autor = DAOFactory.getFactory().getAutorDAO();
-		Autor autor1 = new Autor("Julio Ramirez", "Ecuatoriana");
-		Autor autor2 = new Autor("Gabriel Garcia Marquez", "Colombiana");
-		Autor autor3 = new Autor("Pablo Neruda", "Chilena");
-
-		
-		autor.create(autor1);
-		autor.create(autor2);
-		autor.create(autor3);
-		
-		
-		
-		
+		  request.setAttribute("autor", autor.findAll());
+		 
+		 
+		getServletContext().getRequestDispatcher("/Paginas/RegistrarCapitulo.jsp").forward(request, response);
 		
 	}
 

@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ec.edu.ups.dao.AutorDAO;
+import ec.edu.ups.dao.CapituloDAO;
+import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.modelos.Autor;
+import ec.edu.ups.modelos.Capitulo;
+
 /**
  * Servlet implementation class IngresarCapitulo
  */
@@ -36,6 +42,44 @@ public class IngresarCapitulo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		String numCapitulo="";
+		String titulo="";
+		Autor autor = new Autor();
+		Capitulo capitulo= new Capitulo();
+		String autorN= "";
+		
+		String accion = request.getParameter("ingresarCapitulo");
+		if (accion.equals("IngresarCapitulo")) {
+			numCapitulo = request.getParameter("numeroCapitulo");
+			titulo = request.getParameter("titulo");
+			
+			
+			autorN = request.getParameter("tip");
+			AutorDAO autord = DAOFactory.getFactory().getAutorDAO();
+			CapituloDAO capitulod = DAOFactory.getFactory().getCapituloDAO();
+			autor= autord.buscar("nombre", autorN);
+			
+			capitulo = new Capitulo( Integer.parseInt(numCapitulo) , titulo, autor);
+			
+			
+			
+			autor.setCapitulo(capitulo);
+			autord.update(autor);
+			
+			capitulod.create(capitulo);
+			
+
+
+		}
+		
+		try {
+			getServletContext().getRequestDispatcher("/Paginas/index.html").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		
 	}
 
 }

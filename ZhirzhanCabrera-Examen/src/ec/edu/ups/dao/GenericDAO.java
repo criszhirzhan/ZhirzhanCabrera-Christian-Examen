@@ -28,5 +28,7 @@ public interface GenericDAO<T ,ID> {
 
 	public T buscar(String[] attributes, String[] values);
 
+	T buscar(String attributes, String values);
+
 
 }

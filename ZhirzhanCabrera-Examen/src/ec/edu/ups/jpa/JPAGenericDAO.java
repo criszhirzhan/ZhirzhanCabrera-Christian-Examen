@@ -1,6 +1,5 @@
 package ec.edu.ups.jpa;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,9 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
 import ec.edu.ups.dao.GenericDAO;
-
 
 public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID> {
 	private Class<T> persistentClass;
@@ -111,7 +108,6 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID> {
 		return null;
 	}
 
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> find(String[] attributes, String[] values, String order, int index, int size) {
@@ -153,8 +149,8 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID> {
 
 	}
 
-	
-	//Metodo aplicar para encontrar un objeto en especifico. Ejemplo: un usuario por el correo electronico y contraseña.
+	// Metodo aplicar para encontrar un objeto en especifico. Ejemplo: un usuario
+	// por el correo electronico y contraseña.
 	@Override
 	public T buscar(String[] attributes, String values[]) {
 		// TODO Auto-generated method stub
@@ -178,7 +174,37 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID> {
 		// Predicate sig =
 		// criteriaBuilder.like(root.get(attributes[i]).as(String.class),
 		// values[i]);
-		
+
+		criteriaQuery.where(predicate);
+
+		Query query = em.createQuery(criteriaQuery);
+		return (T) query.getSingleResult();
+	}
+
+	@Override
+	public T buscar(String attributes, String values) {
+		// TODO Auto-generated method stub
+		// Se crea un criterio de consulta
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.persistentClass);
+		// Se establece la clausula FROM
+		Root<T> root = criteriaQuery.from(this.persistentClass);
+		// Se establece la clausula SELECT
+		criteriaQuery.select(root); // criteriaQuery.multiselect(root.get(atr))
+		// // Se configuran los predicados,
+		// combinados por AND
+		Predicate predicate = criteriaBuilder.conjunction();
+
+		Predicate sig = criteriaBuilder.like(root.get(attributes).as(String.class), values);
+		// Predicate sig =
+		// criteriaBuilder.like(root.get(attributes[i]).as(String.class),
+		// values[i]);
+		predicate = criteriaBuilder.and(predicate, sig);
+
+		// Predicate sig =
+		// criteriaBuilder.like(root.get(attributes[i]).as(String.class),
+		// values[i]);
+
 		criteriaQuery.where(predicate);
 
 		Query query = em.createQuery(criteriaQuery);

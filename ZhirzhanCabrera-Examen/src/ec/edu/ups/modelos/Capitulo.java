@@ -20,12 +20,14 @@ public class Capitulo implements Serializable {
 	private int numero;
 	private String titulo;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "capitulo")
+	private Autor autor;
+	
 	@ManyToOne
 	@JoinColumn
 	private Libro libro;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "capitulo")
-	private Autor autor;
+
 	
 
 	public Capitulo() {
@@ -39,6 +41,16 @@ public class Capitulo implements Serializable {
 		this.numero = numero;
 		this.titulo = titulo;
 		this.libro = libro;
+		this.autor = autor;
+	}
+	
+	
+
+
+	public Capitulo(int numero, String titulo, Autor autor) {
+		super();
+		this.numero = numero;
+		this.titulo = titulo;
 		this.autor = autor;
 	}
 
